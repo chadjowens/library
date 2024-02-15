@@ -41,7 +41,14 @@ function Book(title, author, pages, read) {
            return `${this.title} by ${this.author}, ${this.pages} pages, ${this.read ? 'read' : 'not read yet'}`;
       } 
   }
+
+  // Book Object Prototype -- calling sayAuthor function
+  Book.prototype.sayAuthor = function() {
+    console.log(this.author);
+  }
+
   // Object with key values
   const theHobbit = new Book('The Hobbit', 'J.R.R. Tolkien', 354, true);
    // Object pointing to function inside Constuctor
   console.log(theHobbit.info());
+  theHobbit.sayAuthor();
