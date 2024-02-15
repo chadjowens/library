@@ -9,8 +9,10 @@
 //     console.log(name);
 //   }
 // }
+// *** Objects with new keyword
 // const player1 = new Player('Chad', 'X');
 // const player2 = new Player('Joe', 'O');
+// *** Objects with function call
 // player1.sayName();
 // player2.sayName();
 
@@ -27,6 +29,7 @@
 // }
 // const theHobbit = new Book('The Hobbit', 'J.R.R. Tolkien', 354, true);
 // theHobbit.info();
+
 ///////////////////////
 // Book Object Constructor -- returning the value of the function
 function Book(title, author, pages, read) {
@@ -38,5 +41,7 @@ function Book(title, author, pages, read) {
            return `${this.title} by ${this.author}, ${this.pages} pages, ${this.read ? 'read' : 'not read yet'}`;
       } 
   }
+  // Object with key values
   const theHobbit = new Book('The Hobbit', 'J.R.R. Tolkien', 354, true);
+   // Object pointing to function inside Constuctor
   console.log(theHobbit.info());
