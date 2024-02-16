@@ -18,17 +18,13 @@ function bookInfo(myLibrary) {
     console.log("//////////////////");
 
     for (let i = 0; i < myLibrary.length; i++) {
-        // console.log(myLibrary[i]);
         let bookInfo = [];
         bookInfo = myLibrary[i];
-        // console.log("Book Info", bookInfo);
+        console.log(bookInfo);
 
-        let element = document.getElementById("header_box");
-        // console.log("Element Info", element);
-    
+        let element = document.getElementById("card_container");
         let newP = document.createElement("p");
         newP.classList.add("new_p");
-    
         element.appendChild(newP);
         
         // function objToStr(obj) {
@@ -36,15 +32,11 @@ function bookInfo(myLibrary) {
         //   } *** This could done as a function
 
         let objToStr = JSON.stringify(bookInfo);
-        objToStr = objToStr.replace(/[""(){}]/g, " ");
-        // objToStr = objToStr.replace(/[:]/g, ":");
-        objToStr = objToStr.replace(/\s*:/g, ":");
-        objToStr = objToStr.replace(/\s*,/g, ",");
-
+        objToStr = objToStr.trim();
+        objToStr = objToStr.replace(/[""(){}]/g, "");
+        objToStr = objToStr.replace(/\s*:\s*/g, ": ");
+        objToStr = objToStr.replace(/,/g, "\n");
         newP.innerHTML = objToStr;
-
-        console.log("Book Info", bookInfo);
-        console.log(typeof(bookInfo));
         console.log(objToStr);
     }
 }
