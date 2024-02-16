@@ -29,17 +29,18 @@ dd {
 }
 .container {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
     width: 80%;
     height: 80%;
     background-color: lightgray;
+    padding: 20px 0px 50px 0px;
 }
 
 .header {
     display: flex;
     flex-direction: column;
-    padding: 10px 0px 50px 0px;
+    padding: 0px 20px 20px 20px;
 }
 
 .card_container {
@@ -60,6 +61,9 @@ p {
     font-family: "Roboto", sans-serif;
     font-weight: 300;
     font-style: normal;
+
+    border-radius: 5px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
 h1 {
@@ -67,4 +71,12 @@ h1 {
     font-weight: 500;
     font-style: normal;
     margin: 10px;
+}
+
+.buttons {
+    font-family: "Roboto", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+    margin: 20px;
+    justify-content: center;
 }
