@@ -33,8 +33,21 @@ function bookInfo(myLibrary) { // display book info in HTML and console
 }
 bookInfo(myLibrary); // Initailly calls bookInfo function and adds existing books to the page
 
-let addBook = document.getElementById("add_book");
-// addBook.addEventListener("click", addBookToLibrary);
+// let addBook = document.getElementById("add_book");
+
+const dialog = document.querySelector("dialog");
+const showButton = document.getElementById("add_book");
+// const closeButton = document.querySelector("close");
+
+// "Show the dialog" button opens the dialog modally
+showButton.addEventListener("click", () => {
+dialog.showModal();
+});
+
+// "Close" button closes the dialog
+// closeButton.addEventListener("click", () => {
+// dialog.close();
+// });
 
 // Book Object Constructor -- returning the value of the function
 function Book(title, author, pages, read) {
@@ -57,11 +70,12 @@ function Book(title, author, pages, read) {
 
 // *** function to add book info taken from user input and push into myLibrary array
 function addBookToLibrary() {
+
     // *** User input to add book info ***
-    let title = prompt("Enter Book Title:");
-    let author = prompt("Enter Book Author:");
-    let pages = prompt("Enter Number of Pages:");
-    let read = prompt("Read or Unread?");
+    // let title = prompt("Enter Book Title:");
+    // let author = prompt("Enter Book Author:");
+    // let pages = prompt("Enter Number of Pages:");
+    // let read = prompt("Read or Unread?");
 
     const bookNew = new Book(title, author, pages, read);
     console.log(bookNew);
