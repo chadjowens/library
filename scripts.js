@@ -2,7 +2,7 @@ const myLibrary = [];  // create an array to hold book objects
 
 const book1 = new Book("The Hobbit", "JRR Tolkien", 354, true);
 const book2 = new Book("EJS", "Marijn Haverbeke", 450, false);
-const book3 = new Book("ChatGPT", "Neil Dagger", 103, true);
+const book3 = new Book("ChatGPT", "Neil Dagger", 103, "read");
 
 myLibrary.push(book1, book2, book3);
 
@@ -42,6 +42,17 @@ function Book(title, author, pages, read) {
     this.Author = author;
     this.Pages = pages;
     this.Read = read;
+    if (read === "Read" || read === "read") {
+        this.Read = true;
+    } else if (read === "Unread" || read === "unread" || read === "Not read") {
+        this.Read = false;
+    }
+    if (this.Read === true) {
+        this.Read = "I read it!";  
+     }
+     else {
+         this.Read = "I haven't read it!";
+     }
   }
 
 // *** function to add book info taken from user input and push into myLibrary array
