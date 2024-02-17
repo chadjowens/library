@@ -33,18 +33,24 @@ function bookInfo(myLibrary) { // display book info in HTML and console
 }
 bookInfo(myLibrary); // Initailly calls bookInfo function and adds existing books to the page
 
-// let addBook = document.getElementById("add_book");
-
 const dialog = document.querySelector("dialog");
-const showButton = document.getElementById("add_book");
-// const closeButton = document.querySelector("close");
 
-// "Show the dialog" button opens the dialog modally
-showButton.addEventListener("click", () => {
-dialog.showModal();
+const addBook = document.getElementById("add_book");
+addBook.addEventListener('click', function() {
+    dialog.showModal();
 });
 
+// Same as above but using arrow function
+// addBook.addEventListener("click", () => {
+// dialog.showModal();
+// });
+
 // "Close" button closes the dialog
+const closeButton = document.getElementById("close");
+closeButton.addEventListener('click', function() {
+    dialog.close();
+});
+// Same as above but using arrow function
 // closeButton.addEventListener("click", () => {
 // dialog.close();
 // });
@@ -72,7 +78,11 @@ function Book(title, author, pages, read) {
 function addBookToLibrary() {
 
     // *** User input to add book info ***
-    // let title = prompt("Enter Book Title:");
+    let title = document.getElementById("title").value;
+    let author = document.getElementById("author").value;
+    let pages = document.getElementById("pages").value;
+    let read = document.getElementById("read").value;
+
     // let author = prompt("Enter Book Author:");
     // let pages = prompt("Enter Number of Pages:");
     // let read = prompt("Read or Unread?");
@@ -96,4 +106,5 @@ function addBookToLibrary() {
     objToStr = objToStr.replace(/,/g, "\n");
     newP.innerHTML = objToStr;
     console.log(objToStr);
+    dialog.close();
 }
