@@ -1,45 +1,32 @@
 const myLibrary = [];  // create an array to hold book objects
 
-const book1 = new Book("The Hobbit", "JRR Tolkien", 354, true);
-const book2 = new Book("EJS", "Marijn Haverbeke", 450, false);
-const book3 = new Book("ChatGPT", "Neil Dagger", 103, "read");
+// const book1 = new Book("The Hobbit", "JRR Tolkien", 354, true);
+// const book2 = new Book("EJS", "Marijn Haverbeke", 450, false);
+// const book3 = new Book("ChatGPT", "Neil Dagger", 103, "read");
 
-myLibrary.push(book1, book2, book3);
+// myLibrary.push(book1, book2, book3);
 
-function bookInfo(myLibrary) { // display book info in HTML and console
+function bookInfo(myLibrary) { 
+    // display book info in HTML and console if already exists 
     // loop through myLibrary array and display book info for each book
-    console.log(myLibrary.length);
-    console.log("//////////////////");
-    for (let i = 0; i < myLibrary.length; i++) { // loop through myLibrary array
-        let bookInfo = []; // create an array to hold book info
-        bookInfo = myLibrary[i]; // set bookInfo to the current book in the array
-        console.log(bookInfo);  // display book info in console
-
-        // *** creates a new paragraph element and appends it to the card_container div
-        let element = document.getElementById("card_container");
-        let newP = document.createElement("p");
-        newP.classList.add("new_p");
-        element.appendChild(newP);
-    
-        // Converts object to string, formats string and displays in HTML via innerHTML
-        let objToStr = JSON.stringify(bookInfo);
-        objToStr = objToStr.trim();
-        objToStr = objToStr.replace(/[""(){}]/g, "");
-        objToStr = objToStr.replace(/\s*:\s*/g, ": ");
-        objToStr = objToStr.replace(/,/g, "\n");
-        newP.innerHTML = objToStr;
-        console.log(objToStr);
+    for (let i = 0; i < myLibrary.length; i++) { 
+        // let bookInfo = []; // create an array to hold book info
+        // bookInfo = myLibrary[i]; // set bookInfo to the current book in the array
+        console.log("////////////////// from bookInfo() ////////////");
+        console.log(myLibrary.length);
+        console.log("//////////////////");
+        console.log(myLibrary[i]);
+        console.log("//////////////////");
     }
 }
+
 bookInfo(myLibrary); // Initailly calls bookInfo function and adds existing books to the page
 
 const dialog = document.querySelector("dialog");
-
 const addBook = document.getElementById("add_book");
 addBook.addEventListener('click', function() {
     dialog.showModal();
 });
-
 // Same as above but using arrow function
 // addBook.addEventListener("click", () => {
 // dialog.showModal();
@@ -61,50 +48,57 @@ function Book(title, author, pages, read) {
     this.Author = author;
     this.Pages = pages;
     this.Read = read;
-    if (read === "Read" || read === "read") {
-        this.Read = true;
-    } else if (read === "Unread" || read === "unread" || read === "Not read") {
-        this.Read = false;
-    }
-    if (this.Read === true) {
-        this.Read = "I read it!";  
-     }
-     else {
-         this.Read = "I haven't read it!";
-     }
   }
 
-// *** function to add book info taken from user input and push into myLibrary array
-function addBookToLibrary() {
+Book.prototype.info = function() {
+    return `${this.Title}, By: ${this.Author}, ${this.Pages} pages, ${this.Read ? 'I read it!' : 'Not read yet'}`;
+}
 
-    // *** User input to add book info ***
+let submitButton = document.getElementById("submit");
+
+submitButton.addEventListener('click', function() {
     let title = document.getElementById("title").value;
     let author = document.getElementById("author").value;
     let pages = document.getElementById("pages").value;
     let read = document.getElementById("read").value;
+    if (read === "read") {
+        read = true;
+    }
+    else if (read === "not read") {
+        read = false;
+    }   
 
-    // let author = prompt("Enter Book Author:");
-    // let pages = prompt("Enter Number of Pages:");
-    // let read = prompt("Read or Unread?");
-
-    const bookNew = new Book(title, author, pages, read);
+    // New Book object
+    let book = new Book(title, author, pages, read);
+    bookNew = book.info();
     console.log(bookNew);
-    myLibrary.push(bookNew);
-    console.log(myLibrary.length);
+    console.log(typeof(bookNew));
 
+    addToDisplay(bookNew)  // Calls function to display the book on the screen upon submit
+    myLibrary.push(book); // pushes book into myLibrary array
+    bookInfo(myLibrary); // Initailly calls bookInfo function and adds existing books to the page
+}); 
+// // *** function to add book info taken from user input and push into myLibrary array
+// function addBookToLibrary() {
+//     // *** User input to add book info ***
+//     let title = document.getElementById("title").value;
+//     let author = document.getElementById("author").value;
+//     let pages = document.getElementById("pages").value;
+//     let read = document.getElementById("read").value;
+
+//     const bookNew = new Book(title, author, pages, read);
+ 
+function addToDisplay(bookNew) {  
     // *** creates a new paragraph element and appends it to the card_container div
     let element = document.getElementById("card_container");
     let newP = document.createElement("p");
     newP.classList.add("new_p");
     element.appendChild(newP);
 
-    // Converts object to string, formats string and displays in HTML via innerHTML
-    let objToStr = JSON.stringify(bookNew);
-    objToStr = objToStr.trim();
-    objToStr = objToStr.replace(/[""(){}]/g, "");
-    objToStr = objToStr.replace(/\s*:\s*/g, ": ");
-    objToStr = objToStr.replace(/,/g, "\n");
-    newP.innerHTML = objToStr;
-    console.log(objToStr);
+    // Formats string and displays in HTML via innerHTML
+    bookNew = bookNew.trim();
+    bookNew = bookNew.replace(/,/g, "\n");
+    newP.innerHTML = bookNew;
     dialog.close();
+    // info();
 }
