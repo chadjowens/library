@@ -30,7 +30,7 @@ dd {
 .container {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    /* justify-content: center; */
     width: 80%;
     height: 80%;
     background-color: lightgray;
@@ -74,9 +74,41 @@ h1 {
 }
 
 .buttons {
+    display:flex;
+    flex-direction: row;
+    
     font-family: "Roboto", sans-serif;
     font-weight: 500;
     font-style: normal;
     margin: 20px;
-    justify-content: center;
+
+    /* cursor: pointer; */
 }
+
+input[type="button"] {
+    /* color: tomato; */
+    /* background-color: tomato; */
+    cursor: pointer;
+}
+
+.close {
+    cursor: pointer;
+}
+
+span[type="close"] {
+    /* color: tomato; */
+    /* background-color: tomato; */
+    cursor: pointer;
+}
+/* button {
+    
+}
+
+button:hover {
+    cursor: pointer;
+}
+
+button[type="submit"] {
+    color: tomato;
+    background-color: tomato;
+} */
