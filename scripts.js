@@ -25,7 +25,10 @@ bookInfo(myLibrary); // Initailly calls bookInfo function and adds existing book
 const dialog = document.querySelector("dialog");
 const addBook = document.getElementById("add_book");
 addBook.addEventListener('click', function() {
+    
     dialog.showModal();
+    document.getElementById("modal_form").reset();
+    // document.getElementById("modal_form").reset();
 });
 // Same as above but using arrow function
 // addBook.addEventListener("click", () => {
