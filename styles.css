@@ -91,15 +91,21 @@ input[type="button"] {
     cursor: pointer;
 }
 
-.close {
-    cursor: pointer;
-}
-
-span[type="close"] {
+.new_btn {
     /* color: tomato; */
     /* background-color: tomato; */
     cursor: pointer;
 }
+
+.close {
+    cursor: pointer;
+}
+
+/* span[type="close"] {
+    /* color: tomato; */
+    /* background-color: tomato; */
+    /* cursor: pointer; */
+/* } */ 
 /* button {
     
 }

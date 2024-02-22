@@ -91,14 +91,37 @@ submitButton.addEventListener('click', function() {
 function addToDisplay(bookNew) {  
     // *** creates a new paragraph element and appends it to the card_container div
     let element = document.getElementById("card_container");
+    let newDiv = document.createElement("div");
+    newDiv.classList.add("new_div");
+    element.appendChild(newDiv);
+
     let newP = document.createElement("p");
     newP.classList.add("new_p");
-    element.appendChild(newP);
+    // element.appendChild(newP);
+
+    let newBtn = document.createElement("button");
+    newBtn.type = "button";
+    newBtn.className = "new_btn";
+    newBtn.value = "Remove";
+    newBtn.id = "remove";
+    newBtn.textContent = "Remove";
+    // element.appendChild(newBtn);
+
+    // // Add an event listener to the button
+    newBtn.addEventListener("click", function() {
+    // // 'this' refers to the button that was clicked
+    // // 'parentNode' is the div containing the button
+    this.parentNode.remove();
+    });
 
     // Formats string and displays in HTML via innerHTML
     bookNew = bookNew.trim();
     bookNew = bookNew.replace(/,/g, "\n");
+    // newP.innerHTML = bookNew;
     newP.innerHTML = bookNew;
+    newDiv.appendChild(newP);
+    newDiv.appendChild(newBtn);
+
     dialog.close();
     // info();
 }
