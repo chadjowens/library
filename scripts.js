@@ -65,11 +65,6 @@ submitButton.addEventListener('click', function() {
     let book = new Book(title, author, pages, read); // new instance of Book object
     bookNew = book.info();  // calls info method to display book info as a string
 
-    // console.log("///////// book <-- Book /////////");
-    // console.log(book);
-    // console.log("///////// newBook <-- Book.prototype.info() /////////");
-    // console.log(bookNew);
-
     addToDisplay(book, bookNew)  // Calls function to display the book on the screen upon submit
     myLibrary.push(book); // Pushes book into myLibrary array
     bookInfo(myLibrary); // Initially calls bookInfo function and adds existing books to the page
@@ -106,9 +101,6 @@ function addToDisplay(book, bookNew) {
 
     readStatus.addEventListener("click", function() {
     // function called to update status
-    // console.log("///////// after click -- BEFORE call Read / Not Read function called /////////");
-    // console.log(book);
-    // console.log(bookNew);
     updateStatus(book, bookNew);
     });
     
@@ -123,25 +115,12 @@ function addToDisplay(book, bookNew) {
 }
 
 function updateStatus(book, bookNew) {
-    // console.log("///////// after click -- AFTER Read / Not Read function called /////////");
-    // console.log(book.read);
-    // console.log(book);
-    // console.log(bookNew);
     book.Read = !book.Read;
-    // console.log("///////// after book.Read = !book.Read /////////");
-    // console.log(book);
-    // console.log("///////// set new variable updateReadStatus and read in info() to convert to a string /////////");
     let updateReadStatus = book.info();
-    // console.log("///////// console log updateReadStatus / and type /////////");
-    // console.log(updateReadStatus);
-    // console.log(typeof(updateReadStatus));
-
-    // console.log("//////////////////");
     let parent = document.getElementsByClassName('new_div')[0];
     console.log(parent);
     
     let oldChild = document.getElementsByClassName('new_p')[0];
-    // console.log(oldChild);
 
     let newChild = document.createElement('p');
     newChild.classList.add("new_p");
@@ -149,6 +128,5 @@ function updateStatus(book, bookNew) {
     updateReadStatus = updateReadStatus.trim();
     updateReadStatus = updateReadStatus.replace(/,/g, "\n");
     newChild.textContent = updateReadStatus;
-    // console.log(newChild);
     parent.replaceChild(newChild, oldChild);
 }
