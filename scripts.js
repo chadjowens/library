@@ -12,11 +12,11 @@ function bookInfo(myLibrary) {
     for (let i = 0; i < myLibrary.length; i++) { 
         // let bookInfo = []; // create an array to hold book info
         // bookInfo = myLibrary[i]; // set bookInfo to the current book in the array
-        console.log("////////////////// from bookInfo() ////////////");
-        console.log(myLibrary.length);
-        console.log("//////////////////");
-        console.log(myLibrary[i]);
-        console.log("//////////////////");
+        // console.log("////////////////// from bookInfo() ////////////");
+        // console.log(myLibrary.length);
+        // console.log("//////////////////");
+        // console.log(myLibrary[i]);
+        // console.log("//////////////////");
     }
 }
 
@@ -24,26 +24,17 @@ bookInfo(myLibrary); // Initailly calls bookInfo function and adds existing book
 
 const dialog = document.querySelector("dialog");
 const addBook = document.getElementById("add_book");
+
 addBook.addEventListener('click', function() {
-    
     dialog.showModal();
     document.getElementById("modal_form").reset();
-    // document.getElementById("modal_form").reset();
 });
-// Same as above but using arrow function
-// addBook.addEventListener("click", () => {
-// dialog.showModal();
-// });
 
 // "Close" button closes the dialog
 const closeButton = document.getElementById("close");
 closeButton.addEventListener('click', function() {
     dialog.close();
 });
-// Same as above but using arrow function
-// closeButton.addEventListener("click", () => {
-// dialog.close();
-// });
 
 // Book Object Constructor -- returning the value of the function
 function Book(title, author, pages, read) {
@@ -51,35 +42,37 @@ function Book(title, author, pages, read) {
     this.Author = author;
     this.Pages = pages;
     this.Read = read;
-  }
+}
 
-Book.prototype.info = function() {
+Book.prototype.info = function() { // Function to return book info
     return `${this.Title}, By: ${this.Author}, ${this.Pages} pages, ${this.Read ? 'I read it!' : 'Not read yet'}`;
 }
 
 let submitButton = document.getElementById("submit");
-
 submitButton.addEventListener('click', function() {
     let title = document.getElementById("title").value;
     let author = document.getElementById("author").value;
     let pages = document.getElementById("pages").value;
-    let read = document.getElementById("read").value;
-    if (read === "read") {
-        read = true;
-    }
-    else if (read === "not read") {
-        read = false;
-    }   
+    let checkbox = document.getElementById('read');
+    let read = checkbox.checked;
+        checkbox.addEventListener('change', function() {
+            read = checkbox.checked;
+    });
+    console.log("/////////From Submit Button/////////");
+    console.log(read);
 
     // New Book object
-    let book = new Book(title, author, pages, read);
-    bookNew = book.info();
-    console.log(bookNew);
-    console.log(typeof(bookNew));
+    let book = new Book(title, author, pages, read); // new instance of Book object
+    bookNew = book.info();  // calls info method to display book info as a string
 
-    addToDisplay(bookNew)  // Calls function to display the book on the screen upon submit
-    myLibrary.push(book); // pushes book into myLibrary array
-    bookInfo(myLibrary); // Initailly calls bookInfo function and adds existing books to the page
+    console.log("///////// book <-- Book /////////");
+    console.log(book);
+    console.log("///////// newBook <-- Book.prototype.info() /////////");
+    console.log(bookNew);
+
+    addToDisplay(book, bookNew)  // Calls function to display the book on the screen upon submit
+    myLibrary.push(book); // Pushes book into myLibrary array
+    bookInfo(myLibrary); // Initially calls bookInfo function and adds existing books to the page
 }); 
 // // *** function to add book info taken from user input and push into myLibrary array
 // function addBookToLibrary() {
@@ -91,7 +84,7 @@ submitButton.addEventListener('click', function() {
 
 //     const bookNew = new Book(title, author, pages, read);
  
-function addToDisplay(bookNew) {  
+function addToDisplay(book, bookNew) {  
     // *** creates a new paragraph element and appends it to the card_container div
     let element = document.getElementById("card_container");
     let newDiv = document.createElement("div");
@@ -100,7 +93,6 @@ function addToDisplay(bookNew) {
 
     let newP = document.createElement("p");
     newP.classList.add("new_p");
-    // element.appendChild(newP);
 
     let newBtn = document.createElement("button");
     newBtn.type = "button";
@@ -108,23 +100,110 @@ function addToDisplay(bookNew) {
     newBtn.value = "Remove";
     newBtn.id = "remove";
     newBtn.textContent = "Remove";
-    // element.appendChild(newBtn);
 
-    // // Add an event listener to the button
+    // Add an event listener to the newBtn
     newBtn.addEventListener("click", function() {
-    // // 'this' refers to the button that was clicked
-    // // 'parentNode' is the div containing the button
     this.parentNode.remove();
     });
 
+    let readStatus = document.createElement("button");
+    readStatus.type = "button";
+    readStatus.className = "read_status";
+    readStatus.value = "Read Status";
+    readStatus.id = "readStatus";
+    readStatus.textContent = "Read / Not Read";
+
+    readStatus.addEventListener("click", function() {
+        // function called to update status
+        console.log("///////// after click -- BEFORE call Read / Not Read function called /////////");
+        console.log(book);
+        console.log(bookNew);
+        updateStatus(book, bookNew);
+
+    });
+
+    // let checkbox = document.getElementById('read');
+    // let read = checkbox.checked;
+    // console.log(read);
+    // checkbox.addEventListener('change', function() {
+    //     read = checkbox.checked;
+    //     console.log(read);
+    // });
+
+    // let readStatus = read;
+
+    // // Add an event listener to the button
+    
     // Formats string and displays in HTML via innerHTML
     bookNew = bookNew.trim();
     bookNew = bookNew.replace(/,/g, "\n");
-    // newP.innerHTML = bookNew;
     newP.innerHTML = bookNew;
     newDiv.appendChild(newP);
     newDiv.appendChild(newBtn);
-
+    newDiv.appendChild(readStatus);
     dialog.close();
-    // info();
+}
+
+function updateStatus(book, bookNew) {
+    console.log("///////// after click -- AFTER Read / Not Read function called /////////");
+    // console.log(book.read);
+    console.log(book);
+    console.log(bookNew);
+    book.Read = !book.Read;
+    console.log("///////// after book.Read = !book.Read /////////");
+    console.log(book);
+    console.log("///////// set new variable updateReadStatus and read in info() to convert to a string /////////");
+    let updateReadStatus = book.info();
+    console.log("///////// console log updateReadStatus / and type /////////");
+    console.log(updateReadStatus);
+    console.log(typeof(updateReadStatus));
+
+    // let updateP = document.getElementsByClassName("p");
+    // newDiv.removeChild(newP);
+    // newDiv.appendChild(updateP);
+    console.log("//////////////////");
+    let parent = document.getElementsByClassName('new_div')[0];
+    console.log(parent);
+    // let newP = document.createElement("p");
+    // newP.classList.add("new_p");
+    
+    let oldChild = document.getElementsByClassName('new_p')[0];
+    console.log(oldChild);
+
+    let newChild = document.createElement('p');
+    newChild.classList.add("new_p");
+
+    updateReadStatus = updateReadStatus.trim();
+    updateReadStatus = updateReadStatus.replace(/,/g, "\n");
+    newChild.textContent = updateReadStatus;
+    console.log(newChild);
+
+    parent.replaceChild(newChild, oldChild);
+    // parent.removeChild(oldChild);
+    // parent.appendChild(newChild);
+
+    // bookNew = book.info();
+    // read = !read;
+    // console.log(bookNew.info(read));
+
+    // readStatus.addEventListener('click', function() {
+    //     console.log("/////////From Update Status/////////");
+    //     read = !read;
+    //     console.log(read);
+    // });
+
+    //     checkbox.addEventListener('change', function() {
+    //     read = checkbox.checked;
+    //     console.log(read);
+    // });
+    // let readStatus = document.getElementById("card_container");
+
+    // let checkbox = document.getElementById('read');
+    // let read = checkbox.checked;
+    // console.log(read);
+    // checkbox.addEventListener('change', function() {
+    //     read = checkbox.checked;
+    //     console.log(read);
+    // });
+
 }
